@@ -1,10 +1,16 @@
-import { Component } from '@angular/core';
+import { Component } from '@angular/core'
+import { AppStore } from './app.store'
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  template: `
+    <ng-container *ngIf="vm$ | async as vm">
+      <div>Component Store v11</div>
+      <pre>{{ vm.items | json }}</pre>
+    </ng-container>
+  `,
 })
 export class AppComponent {
-  title = 'ngrx-component-store-v11';
+  readonly vm$ = this.store.vm$
+  constructor(private readonly store: AppStore) {}
 }
